@@ -12,4 +12,9 @@ POSTS_DIR = BASE_DIR / 'posts'
 
 TAILWIND_EXECUTABLE = BASE_DIR / 'tailwindcss'
 
-BUILD_DIR = BASE_DIR / 'build'
+STATICS_DIR = BASE_DIR / 'static'
+
+# Github only recognizes the root and /docs directory as
+# custom paths. Since we have other stuff in our root which
+# we don't want in the blog, /docs is our only option.
+BUILD_DIR = BASE_DIR / 'docs'

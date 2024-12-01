@@ -16,6 +16,8 @@ jinja_env = Environment(
 def build_posts():
     title('building posts')
     
+    (settings.BUILD_DIR / 'blog').mkdir(parents=True, exist_ok=True)
+    
     template = jinja_env.get_template('blog/post.html')
     
     posts = os.listdir(settings.POSTS_DIR)
@@ -33,16 +35,17 @@ def build_posts():
             )
 
 
-
 def build_css():
+    (settings.BUILD_DIR / 'static').mkdir(parents=True, exist_ok=True)
+    
     if settings.TAILWIND_EXECUTABLE.exists():
         title('building TailwindCSS files')
         subprocess.run([
             settings.TAILWIND_EXECUTABLE,
             '-i',
-            'static/css/main.css',
+            settings.STATICS_DIR / 'css/main.css',
             '-o',
-            'build/static/main.css',
+            settings.BUILD_DIR / 'static/main.css',
             '--minify'
         ])
         return
@@ -51,4 +54,3 @@ def build_css():
         f'WARNING: no tailwind executable at {settings.TAILWIND_EXECUTABLE}.',
         'Skipping CSS build.',
     ])
-
