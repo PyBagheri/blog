@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/main.css">
+
+    <link rel="shortcut icon" href="/static/icons/main.ico">
+
+    
+    <meta property="og:title" content="Bagheri's Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bagheri.io/" />
+
+    
+    <meta name="description" content="Here I share my thoughts and what I learn.">
+    <meta property="og:description" content="Here I share my thoughts and what I learn." />
+    
+
+
+    
+
+    <title>Bagheri's Blog</title>
+</head>
+
+<body class="font-opensans">
+    <div id="main" class="group dark flex flex-col w-full min-h-screen [&.dark]:bg-darkmode-bg [&.dark]:text-darkmode-text">
+        <div class="h-24 w-full flex justify-center container-px">
+            <header class="container-main mx-auto w-full flex items-center justify-between gap-x-4">
+                <a href="/" class="text-xl [@media(min-width:18.75rem)]:text-2xl font-roboto-mono tracking-tight cursor-pointer select-none -mt-1">M. Bagheri</a>
+                <div class="hidden sm:flex gap-x-14 items-center">
+                    <nav class="flex gap-x-14">
+                        <a href="https://github.com/PyBagheri/" class="text-xl unemphasized-link transition-colors select-none">Github</a>
+                        <a href="/" class="text-xl unemphasized-link transition-colors select-none">Posts</a>
+                    </nav>
+                    <button onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+                        <svg class="w-8 h-8 stroke-black group-[.dark]:stroke-darkmode-text text-hover transition-colors group-[:not(.dark)]:hidden" xmlns="http://www.w3.org/3000/svg" width="512" height="512" viewBox="0 0 512 512"><title>Sun</title><line x1="256" y1="48" x2="256" y2="96" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="256" y1="416" x2="256" y2="464" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="403.08" y1="108.92" x2="369.14" y2="142.86" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="142.86" y1="369.14" x2="108.92" y2="403.08" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="464" y1="256" x2="416" y2="256" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="96" y1="256" x2="48" y2="256" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="403.08" y1="403.08" x2="369.14" y2="369.14" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="142.86" y1="142.86" x2="108.92" y2="108.92" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><circle cx="256" cy="256" r="80" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/></svg>
+                        <svg class="w-8 h-8 stroke-black group-[.dark]:stroke-darkmode-text text-hover transition-colors group-[.dark]:hidden" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Moon</title><path d="M160 136c0-30.62 4.51-61.61 16-88C99.57 81.27 48 159.32 48 248c0 119.29 96.71 216 216 216 88.68 0 166.73-51.57 200-128-26.39 11.49-57.38 16-88 16-119.29 0-216-96.71-216-216z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+                    </button>
+                </div>
+
+                <div class="flex sm:hidden gap-x-14 [@media(max-width:25rem)]:gap-x-8 items-center *:cursor-pointer">
+                    <button class="[@media(max-width:17.5rem)]:hidden" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+                        <svg class="[@media(max-width:18.75rem)]:w-7 [@media(max-width:18.75rem)]:h-7 w-8 h-8 stroke-darkmode-text text-hover transition-colors group-[:not(.dark)]:hidden" xmlns="http://www.w3.org/3000/svg" width="512" height="512" viewBox="0 0 512 512"><title>Sun</title><line x1="256" y1="48" x2="256" y2="96" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="256" y1="416" x2="256" y2="464" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="403.08" y1="108.92" x2="369.14" y2="142.86" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="142.86" y1="369.14" x2="108.92" y2="403.08" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="464" y1="256" x2="416" y2="256" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="96" y1="256" x2="48" y2="256" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="403.08" y1="403.08" x2="369.14" y2="369.14" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="142.86" y1="142.86" x2="108.92" y2="108.92" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><circle cx="256" cy="256" r="80" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/></svg>
+                        <svg class="[@media(max-width:18.75rem)]:w-7 [@media(max-width:18.75rem)]:h-7 w-8 h-8 stroke-black group-[.dark]:stroke-darkmode-text text-hover transition-colors group-[.dark]:hidden" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Moon</title><path d="M160 136c0-30.62 4.51-61.61 16-88C99.57 81.27 48 159.32 48 248c0 119.29 96.71 216 216 216 88.68 0 166.73-51.57 200-128-26.39 11.49-57.38 16-88 16-119.29 0-216-96.71-216-216z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+                    </button>
+                    <button aria-label="Drawer menu" onclick="openDrawer()">
+                        <svg class="[@media(max-width:18.75rem)]:w-9 [@media(max-width:18.75rem)]:h-9 w-10 h-10 stroke-black group-[.dark]:stroke-darkmode-text text-hover transition-colors" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Three vertical lines</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 160h352M80 256h352M80 352h352"/></svg>
+                    </button>
+                </div>
+            </header>
+        </div>
+
+        <main class="flex justify-center container-px flex-grow">
+            <div class="flex container-main w-full flex-grow my-8 md:my-16 gap-x-24 2xl:gap-x-32">
+                <div class="flex flex-grow flex-col gap-y-6 md:gap-y-10 mx-auto max-w-full min-w-0">
+                    
+<div class="flex flex-col gap-y-16">
+    <h2 class="my-0 text-lightmode-colored-title group-[.dark]:text-darkmode-colored-title">Latest posts</h2>
+
+    
+
+     
+
+    
+
+<nav class="flex flex-col gap-y-8 md:gap-y-10">
+    
+
+    <div class="flex flex-col lg:flex-row gap-x-8 gap-y-8 *:flex-grow *:basis-0">
+        
+
+        
+    </div>
+</nav>
+</div>
+
+                </div>
+    
+                
+                
+                
+                <nav class="hidden xl:flex flex-col gap-y-8 w-[15rem] 2xl:w-[20rem] flex-shrink-0 sticky top-12 self-start max-h-[calc(100vh-5rem)] overflow-y-auto pb-2">
+                    
+
+
+
+
+
+
+
+
+                </nav>
+                
+            </div>
+        </main>
+
+        
+        <footer class="bg-[#e5e5e5] group-[.dark]:bg-[#090909] container-px py-10 flex">
+            <div class="container-main mx-auto flex flex-col gap-y-10 sm:flex-row items-center justify-between w-full">
+                <div class="gap-y-1 flex flex-col font-roboto-mono">
+                    <div class="text-xl md:text-2xl text-center text-wrap" style="word-break: break-word;">MohammadHossein Bagheri</div>
+                    <div class="text-lg md:text-xl text-gray-500 group-[.dark]:text-[gray] text-center sm:text-left">Developer</div>
+                </div>
+
+                <nav class="flex gap-x-14 text-xl md:text-2xl font-roboto-mono">
+                    <a href="/about/" class="select-none unemphasized-link">About</a>
+                </nav>  
+            </div>
+        </footer>
+        
+
+        <div id="drawer" class="fixed peer top-0 -right-64 [&.open]:right-0 [&.open]:shadow-2xl h-screen bg-blue-100 group-[.dark]:bg-gray-800 max-w-64 w-full z-[100] duration-100 flex flex-col gap-y-4">
+            <div class="h-24 px-5 flex items-center justify-between" dir="rtl">
+                <button onclick="closeDrawer()" class="unemphasized-link"><svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg></button>
+
+                <button onclick="toggleDarkMode()" aria-label="Toggle dark mode" class="hidden [@media(max-width:17.5rem)]:block">
+                    <svg class="w-8 h-8 stroke-black group-[.dark]:stroke-darkmode-text text-hover transition-colors group-[:not(.dark)]:hidden" xmlns="http://www.w3.org/3000/svg" width="512" height="512" viewBox="0 0 512 512"><title>Sun</title><line x1="256" y1="48" x2="256" y2="96" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="256" y1="416" x2="256" y2="464" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="403.08" y1="108.92" x2="369.14" y2="142.86" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="142.86" y1="369.14" x2="108.92" y2="403.08" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="464" y1="256" x2="416" y2="256" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="96" y1="256" x2="48" y2="256" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="403.08" y1="403.08" x2="369.14" y2="369.14" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><line x1="142.86" y1="142.86" x2="108.92" y2="108.92" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/><circle cx="256" cy="256" r="80" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/></svg>
+                    <svg class="w-8 h-8 stroke-black group-[.dark]:stroke-darkmode-text text-hover transition-colors group-[.dark]:hidden" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Moon</title><path d="M160 136c0-30.62 4.51-61.61 16-88C99.57 81.27 48 159.32 48 248c0 119.29 96.71 216 216 216 88.68 0 166.73-51.57 200-128-26.39 11.49-57.38 16-88 16-119.29 0-216-96.71-216-216z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+                </button>
+            </div>
+
+            <nav class="flex flex-col gap-y-4 px-6 text-xl text-center">
+                <a href="/" class="unemphasized-link border rounded-lg border-gray-400 group-[.dark]:border-gray-700 !py-2">Posts</a>
+                <a href="https://github.com/PyBagheri/" class="unemphasized-link border rounded-lg border-gray-400 group-[.dark]:border-gray-700 !py-2">Github</a>
+            </nav>
+        </div>
+        <div class="fixed top-0 right-0 bottom-0 left-0 bg-black/60 z-[90] w-screen h-screen hidden peer-[.open]:block" onclick="closeDrawer()"></div>
+    </div>
+<script>
+    var main = document.getElementById('main');
+
+    function toggleDarkMode() {
+        if (main.classList.contains('dark')) {
+            main.classList.remove('dark');
+            localStorage.setItem('dark', 'false');
+        } else {
+            main.classList.add('dark');
+            localStorage.removeItem('dark');
+        }
+    }
+
+    if (localStorage.getItem('dark') === 'false') {
+        main.classList.remove('dark');
+    }
+
+    function openDrawer() {
+        let drawer = document.getElementById('drawer');
+        if (!drawer.classList.contains('open')) {
+            drawer.classList.add('open');
+        }
+    }
+
+    function closeDrawer() {
+        let drawer = document.getElementById('drawer');
+        if (drawer.classList.contains('open')) {
+            drawer.classList.remove('open');
+        }
+    }
+</script>
+
+</body>
+</html>
