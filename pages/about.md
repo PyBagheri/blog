@@ -1,7 +1,7 @@
 <!--METADATA
 title: About me
 
-hide: sidebar checkthisout comments
+hide: sidebar checkthisout comments new
 
 brief:
 -->
