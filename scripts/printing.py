@@ -19,20 +19,27 @@ def color(text, color):
 
 
 def title(text):
-    print(color(f'{bulletize(text)}\n', Colors.GREEN))
+    print(color(f'[{text}]', Colors.GREEN))
+
+
+def info(text):
+    print(f'{bulletize(text, '>')}')
 
 
 def error(text):
-    print(color(f'{bulletize(text)}\n', Colors.RED))
+    print(color(f'{bulletize(text)}', Colors.RED))
 
 
 def warning(text):
-    print(color(f'{bulletize(text)}\n', Colors.YELLOW))
+    print(color(f'{bulletize(text)}', Colors.YELLOW))
+
+
+def endsection():
+    print('\n')
 
 
 def bulletlist(title, text_list):
     print(title)
     for text in text_list:
         print('  ' + bulletize(text, '●'))
-    print()
     

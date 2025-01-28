@@ -1,0 +1,28 @@
+{% if number_of_pages > 1 %}
+{% with 
+prev=(url('postpage', page=page-1) if type == 'post' else url('tagpage', tag=tag, page=page-1)),
+next=(url('postpage', page=page+1) if type == 'post' else url('tagpage', tag=tag, page=page+1))
+%}
+<nav class="flex-col gap-y-6 md:mt-8 flex items-start">
+    {% if page == 1 %}
+    <a href="{{ next }}" class="text-xl md:text-2xl font-opensans unemphasized-link max-md:self-center hidden md:block">Older posts<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline ml-2" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg></a>
+    <a href="{{ next }}" class="text-xl md:text-2xl font-opensans !py-2 px-2 unemphasized-link max-md:self-center max-w-56 w-full text-center border border-gray-600 rounded-lg md:hidden [@media(max-width:13.5rem)]:flex flex-col items-center gap-y-2">Older posts<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline ml-2" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg></a>
+    {% elif page == number_of_pages %}
+    <a href="{{ prev }}" class="text-xl md:text-2xl font-opensans unemphasized-link max-md:self-center hidden md:block"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline mr-2" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/></svg>Newer posts</a>
+    <a href="{{ prev }}" class="text-xl md:text-2xl font-opensans !py-2 px-2 unemphasized-link max-md:self-center max-w-56 w-full text-center border border-gray-600 rounded-lg md:hidden [@media(max-width:13.5rem)]:flex flex-col items-center gap-y-2"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline mr-2" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/></svg>Newer posts</a>
+    {% else %}
+    <div class="gap-x-2 items-center hidden md:flex">
+        <a href="{{ prev }}" class="text-xl md:text-2xl font-opensans unemphasized-link"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline mr-2" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/></svg>Newer posts</a>
+        <div class="h-0.5 w-8 bg-gray-700 mt-1 "></div>
+        <a href="{{ next }}" class="text-xl md:text-2xl font-opensans unemphasized-link">Older posts<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline ml-2" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg></a>
+    </div>
+
+    <div class="flex flex-col gap-y-2 md:hidden self-stretch">
+        <a href="{{ next }}" class="text-xl md:text-2xl font-opensans !py-2 px-2 unemphasized-link max-md:self-center max-w-56 w-full text-center border border-gray-600 rounded-lg flex-wrap-reverse items-center gap-y-2 flex justify-center gap-x-2">Older posts<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg></a>
+        <a href="{{ prev }}" class="text-xl md:text-2xl font-opensans !py-2 px-2 unemphasized-link max-md:self-center max-w-56 w-full text-center border border-gray-600 rounded-lg flex-wrap-reverse items-center gap-y-2 flex justify-center gap-x-2"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/></svg>Newer posts</a>
+    </div>
+    {% endif %}
+    <div class="font-opensans text-lg md:text-xl max-md:self-center text-gray-700 group-[.dark]:text-gray-400">Page {{ page }} of {{ number_of_pages }}</div>
+</nav>
+{% endwith %}
+{% endif %} 

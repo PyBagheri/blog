@@ -1,0 +1,49 @@
+{# This is for pages other than posts. #}
+
+<nav class="flex flex-col gap-y-8 md:gap-y-10">
+    {% if checkthisout and 'checkthisout' not in hide %}
+    <section class="flex flex-col gap-y-3 items-start bg-purple-500/10 rounded-lg p-6 md:p-10 {% if 'sidebar' not in hide %}xl:hidden{% endif %}">
+        <div class="text-2xl font-bold font-ubuntu text-transparent bg-clip-text flex items-center gap-x-2 magic-text-gradient">
+            <svg class="w-6 h-6 md:w-8 md:h-8 group-[.dark]:stroke-[#7ae0ff] stroke-[#00a5d7]" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M413.48,284.46c58.87,47.24,91.61,89,80.31,108.55-17.85,30.85-138.78-5.48-270.1-81.15S.37,149.84,18.21,119c11.16-19.28,62.58-12.32,131.64,14.09" style="fill:none;stroke-miterlimit:10;stroke-width:32px"/><circle cx="256" cy="256" r="160" style="fill:none;stroke-miterlimit:10;stroke-width:32px"/></svg>
+            <h2 class="text-inherit text-xl md:text-2xl my-0">Check this out!</h2>
+        </div>
+        <ul class="flex flex-col gap-y-3 items-start">
+            <li><a href="{{ checkthisout.1 }}" class="unemphasized-magic-link text-lg md:text-xl">{{ checkthisout.0 }}</a></li>
+        </ul>
+    </section>
+    {% endif %}
+
+    <div class="flex flex-col lg:flex-row gap-x-8 gap-y-8 *:flex-grow *:basis-0">
+        {% if popularposts and 'popularposts' not in hide %}
+        <section class="flex flex-col gap-y-3 {% if 'sidebar' not in hide %}xl:hidden{% endif %}">
+            <h2 class="my-0 text-xl md:text-2xl font-bold font-ubuntu text-lightmode-colored-title group-[.dark]:text-darkmode-colored-title">Popular</h2>
+            <ul class="flex flex-col gap-y-3 items-start">
+                {% for item in popularposts %}
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline-block group-[.dark]:fill-darkmode-text -mt-0.5" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg>
+                    <a href="{{ item.1 }}" class="text-lg md:text-xl unemphasized-link">{{ item.0 }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+
+        {% if populartags and 'populartags' not in hide %}
+        <section class="flex flex-col gap-y-3 {% if 'sidebar' not in hide %}xl:hidden{% endif %}">
+            <h2 class="my-0 text-xl md:text-2xl font-bold font-ubuntu text-lightmode-colored-title group-[.dark]:text-darkmode-colored-title">Tags</h2>
+            <ul class="text-lg leading-[35px] -mt-1">
+                {% for item in populartags %}
+                <span class="mr-4 unemphasized-link"><a href="{{ url('tag', tag=item) }}">#{{ item }}</a></span>
+                {% endfor %}
+            </ul>
+        
+            <ul class="flex flex-col gap-y-4 items-start text-lg mt-auto">
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline-block group-[.dark]:fill-darkmode-text -mt-0.5" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg>
+                    <a href="{{ url('alltags') }}" class="unemphasized-link">See all tags</a>
+                </li>
+            </ul>
+        </section>
+        {% endif %}
+    </div>
+</nav>

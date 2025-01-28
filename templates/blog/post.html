@@ -1,14 +1,169 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/main.css">
-    <title>Document</title>
-</head>
-<body>
-    <div class="text-amber-600">
+{% extends "blog/base.html" %}
+
+{% block head %}
+    <meta property="og:title" content="{{ title }} - Bagheri's Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ fullurl('post', slug=slug) }}" />
+    {% if thumbnail %}
+    <meta property="og:image" content="{{ fullurl('thumbnail', filename=thumbnail) }}" />
+    {% endif %}
+
+    {% if brief %}
+    <meta name="description" content="{{ brief }}">
+    <meta property="og:description" content="{{ brief }}" />
+    {% endif %}
+{% endblock head %}
+
+{% block title %}{{ title }} - Bagheri's Blog{% endblock title %}
+
+{% block content %}
+    <article>
+        {# Using h1 will allow text-readers to identify this #}
+        {# as the title. #}
+        <h1 class="mt-0 text-3xl md:text-5xl">{{ title }}</h1>
+        {% if date %}
+        <div>
+            <div class="text-lg md:text-xl text-gray-500 group-[.dark]:text-[gray]"><time>{{ date }}</time>{% if lastupdated %} — <i>Last updated <time>{{ lastupdated }}</time>{% endif %}</i></div>
+        </div>
+        {% endif %}
+        {% if thumbnail %}
+        <div class="mt-7">
+            <img src="{{ url('thumbnail', filename=thumbnail) }}" {% if thumbnailalt %}alt="{{ thumbnailalt }}"{% endif %} class="rounded-lg">
+        </div>
+        {% endif %}
+        <div class="mt-6 md:mt-8"></div>
         {% autoescape off %}{{ content }}{% endautoescape %}
+    </article>
+
+    {# If the sidebar is hidden, we show the next/prev links in the bottom. #}
+    {# #}
+    {# In order to hide the next/prev links, they should simply not be included #}
+    {# in the metadata; you can comment them out by prepending '-- ' to the line. #}
+    {% if next or prev %}
+    <nav class="flex flex-col gap-y-8 xl:gap-y-10 mb-2">
+        {% if next %}
+        <section>
+            <h2 class="text-lightmode-colored-title group-[.dark]:text-darkmode-colored-title font-bold text-xl md:text-2xl font-ubuntu mb-1 md:mb-2 mt-0">Next</h2>
+            <a href="{{ next.1 }}" class="text-lg md:text-xl lightly-emphasized-link">{{ next.0 }}</a>
+        </section>
+        {% endif %}
+
+        {% if prev %}
+        <section>
+            <h2 class="text-lightmode-colored-title group-[.dark]:text-darkmode-colored-title font-bold text-xl md:text-2xl font-ubuntu mb-1 md:mb-2 mt-0">Previous</h2>
+            <a href="{{ prev.1 }}" class="text-lg md:text-xl lightly-emphasized-link">{{ prev.0 }}</a>
+        </section>
+        {% endif %}
+    </nav>
+    {% endif %}
+
+    {% if tags and 'tags' not in hide %}
+    <div class="flex gap-x-4 gap-y-2 w-full flex-wrap">
+        {% for tag in tags %}
+        <a href="{{ url('tag', tag=tag) }}" class="text-gray-600 group-[.dark]:text-[gray] text-hover cursor-pointer">#{{ tag }}</a>
+        {% endfor %}
     </div>
-</body>
-</html>
+    {% endif %}
+
+    {% if 'comments' not in hide %}
+    <div class="giscus *:outline-none w-full hidden group-[.dark]:flex flex-col gap-y-2 text-gray-400">
+        <p role="complementary" class="text-base w-full bg-gray-900 px-3 py-2 rounded-lg text-center max-md:text-sm">If you don't want to authorize using giscus, you can click on "comments" and directly comment in Github dicussions.</p>
+        <iframe aria-label="Comments section" class="giscus-frame w-full" title="Comments" scrolling="no" allow="clipboard-write" src="https://giscus.app/en/widget?origin=http%3A%2F%2Fbagheri.io%2Fblog%2Fkk.html&amp;session=&amp;theme=dark&amp;reactionsEnabled=0&amp;emitMetadata=0&amp;inputPosition=top&amp;repo=PyBagheri%2Fblog&amp;repoId=R_kgDONXYqYA&amp;category=Announcements&amp;categoryId=DIC_kwDONXYqYM4ClRoE&amp;strict=1&amp;description=&amp;backLink=http%3A%2F%2Fbagheri.io%2Fblog%2Fkk.html&amp;term=http%3A%2F%2Fbagheri.io%2Fblog%2Fkk.html" loading="lazy" style="height: 282px;"></iframe>
+    </div>
+
+    <div class="giscus *:outline-none w-full flex flex-col gap-y-2 text-gray-600 group-[.dark]:hidden">
+        <p role="complementary" class="text-base w-full bg-gray-100 px-3 py-2 rounded-lg text-center max-md:text-sm">If you don't want to authorize using giscus, you can click on "comments" and directly comment in Github dicussions.</p>
+        <iframe aria-label="Comments section" class="giscus-frame w-full" title="Comments" scrolling="no" allow="clipboard-write" src="https://giscus.app/en/widget?origin=http%3A%2F%2Fbagheri.io%2Fblog%2Fkk.html&amp;session=&amp;theme=light&amp;reactionsEnabled=0&amp;emitMetadata=0&amp;inputPosition=top&amp;repo=PyBagheri%2Fblog&amp;repoId=R_kgDONXYqYA&amp;category=Announcements&amp;categoryId=DIC_kwDONXYqYM4ClRoE&amp;strict=1&amp;description=&amp;backLink=http%3A%2F%2Fbagheri.io%2Fblog%2Fkk.html&amp;term=http%3A%2F%2Fbagheri.io%2Fblog%2Fkk.html" loading="lazy" style="height: 282px;"></iframe>
+    </div>
+    {% endif %}
+
+    <nav class="flex flex-col gap-y-8 md:gap-y-10">
+        {% if checkthisout and 'checkthisout' not in hide %}
+        <section class="flex flex-col gap-y-3 items-start bg-purple-500/10 rounded-lg p-6 md:p-10 {% if 'sidebar' not in hide %}xl:hidden{% endif %}">
+            <div class="text-2xl font-bold font-ubuntu text-transparent bg-clip-text flex items-center gap-x-2 magic-text-gradient">
+                <svg class="w-6 h-6 md:w-8 md:h-8 group-[.dark]:stroke-[#7ae0ff] stroke-[#00a5d7]" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M413.48,284.46c58.87,47.24,91.61,89,80.31,108.55-17.85,30.85-138.78-5.48-270.1-81.15S.37,149.84,18.21,119c11.16-19.28,62.58-12.32,131.64,14.09" style="fill:none;stroke-miterlimit:10;stroke-width:32px"/><circle cx="256" cy="256" r="160" style="fill:none;stroke-miterlimit:10;stroke-width:32px"/></svg>
+                <h2 class="text-inherit text-xl md:text-2xl my-0">Check this out!</h2>
+            </div>
+            <ul class="flex flex-col gap-y-3 items-start">
+                <li><a href="{{ checkthisout.1 }}" class="unemphasized-magic-link text-lg md:text-xl">{{ checkthisout.0 }}</a></li>
+            </ul>
+        </section>
+        {% endif %}
+
+        <div class="flex flex-col lg:flex-row gap-x-8 gap-y-8 *:flex-grow *:basis-0">
+            {% if new and 'new' not in hide %}
+            <section class="flex flex-col gap-y-3 {% if 'sidebar' not in hide %}xl:hidden{% endif %}">
+                <h2 class="my-0 text-xl md:text-2xl font-bold font-ubuntu text-lightmode-colored-title group-[.dark]:text-darkmode-colored-title">New</h2>
+                <ul class="flex flex-col gap-y-3 items-start">
+                    {% for item in new %}
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline-block group-[.dark]:fill-darkmode-text -mt-0.5" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg>
+                        <a href="{{ url('post', slug=item.1) }}" class="text-lg md:text-xl unemphasized-link">{{ item.0 }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+            {% endif %}
+
+            {% if related %}
+            <section class="flex flex-col gap-y-3 {% if 'sidebar' not in hide %}xl:hidden{% endif %}">
+                <h2 class="my-0 text-xl md:text-2xl font-bold font-ubuntu text-lightmode-colored-title group-[.dark]:text-darkmode-colored-title">Related</h2>
+                <ul class="flex flex-col gap-y-3 items-start">
+                    {% for item in related %}
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline-block group-[.dark]:fill-darkmode-text -mt-0.5" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg>
+                        <a href="{{ item.1 }}" class="text-lg md:text-xl unemphasized-link">{{ item.0 }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+            {% endif %}
+        </div>
+    </nav>
+{% endblock content %}
+
+{% block sidebar %}
+    {% if checkthisout and 'checkthisout' not in hide %}
+    <section class="flex flex-col gap-y-4 items-start bg-purple-500/10 rounded-lg px-6 py-5">
+        <div class="text-2xl font-bold font-ubuntu text-transparent bg-clip-text flex items-center gap-x-2 magic-text-gradient">
+            <svg class="w-7 h-7 2xl:w-8 2xl:h-8 group-[.dark]:stroke-[#7ae0ff] stroke-[#00a5d7]" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M413.48,284.46c58.87,47.24,91.61,89,80.31,108.55-17.85,30.85-138.78-5.48-270.1-81.15S.37,149.84,18.21,119c11.16-19.28,62.58-12.32,131.64,14.09" style="fill:none;stroke-miterlimit:10;stroke-width:32px"/><circle cx="256" cy="256" r="160" style="fill:none;stroke-miterlimit:10;stroke-width:32px"/></svg>
+            <h2 class="text-inherit text-xl 2xl:text-2xl my-0">Check this out!</h2>
+        </div>
+        <ul class="flex flex-col gap-y-4 items-start text-lg">
+            <li><a href="{{ checkthisout.1 }}" class="unemphasized-magic-link">{{ checkthisout.0 }}</a></li>
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if new and 'new' not in hide %}
+    <section class="flex flex-col gap-y-4">
+        <h2 class="my-0 text-2xl font-bold font-ubuntu text-lightmode-colored-title group-[.dark]:text-darkmode-colored-title">New</h2>
+        <ul class="flex flex-col gap-y-4 items-start text-lg">
+            {% for item in new %}
+            <li>
+                <a class="unemphasized-link" href="{{ url('post', slug=item.1) }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline-block group-[.dark]:fill-darkmode-text -mt-0.5" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg>
+                    {{ item.0 }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+    
+    {% if related %}
+    <section class="flex flex-col gap-y-4">
+        <h2 class="my-0 text-2xl font-bold font-ubuntu text-lightmode-colored-title group-[.dark]:text-darkmode-colored-title">Related</h2>
+        <ul class="flex flex-col gap-y-4 items-start text-lg">
+            {% for item in related %}
+            <li>
+                <a class="unemphasized-link" href="{{ item.1 }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline-block group-[.dark]:fill-darkmode-text -mt-0.5" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg>
+                    {{ item.0 }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+{% endblock sidebar %}

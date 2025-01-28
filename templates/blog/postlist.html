@@ -1,0 +1,47 @@
+{% extends "blog/base.html" %}
+
+{% block head %}
+    <meta property="og:title" content="{% if page > 1 %}Page {{ page }} - {% endif %}Bagheri's Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ fullurl('postpage', page=page) }}" />
+
+    {% if website.description %}
+    <meta name="description" content="{{ website.description }}">
+    <meta property="og:description" content="{{ website.description }}" />
+    {% endif %}
+{% endblock head %}
+
+{% block title %}{% if page > 1 %}Page {{ page }} - {% endif %}Bagheri's Blog{% endblock title %}
+
+{% block content %}
+<div class="flex flex-col gap-y-16">
+    {% if page == 1 %}<h2 class="my-0 text-lightmode-colored-title group-[.dark]:text-darkmode-colored-title">Latest posts</h2>{% endif %}
+
+    {% if posts %}
+    {% for post in posts %}
+    <section class="flex flex-col gap-y-4 relative">
+        <nav class="flex flex-col gap-y-2 z-10">
+            <div><h2 class="my-0 text-xl md:text-2xl inline"><a class="unemphasized-link" href="{{ url('post', slug=post.context.slug) }}">{{ post.context.title }}</a></h2></div>
+            <time class="text-base md:text-xl text-gray-500 group-[.dark]:text-[gray]">{{ post.context.date }}</time>
+        </nav>
+        {% if post.context.brief %}
+        <p class="my-0 text-base md:text-lg z-10">
+            {{ post.context.brief }}
+        </p>
+        {% endif %}
+
+        <svg xmlns="http://www.w3.org/2000/svg" class="hidden [@media(min-width:95.625rem)]:block w-6 h-6 group-[.dark]:fill-darkmode-text absolute -left-12 top-[.42rem]" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="hidden md:block [@media(min-width:95.625rem)]:hidden w-5 h-5 group-[.dark]:fill-darkmode-text absolute -left-8 top-[.55rem]" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg>
+    </section>
+    {% endfor %}
+    {% endif %}
+
+    {% with type='post' %}{% include 'blog/components/paginator.html' %}{% endwith %}
+
+    {% include 'blog/components/bottomnav.html' %}
+</div>
+{% endblock content %}
+
+{% block sidebar %}
+{% include 'blog/components/sidebar.html' %}
+{% endblock sidebar %}

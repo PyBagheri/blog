@@ -1,3 +1,174 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Only enable the variable font if we need it later. It takes 100KB more. */
+/* @font-face {
+    font-family: 'Roboto Mono';
+    src: url('./fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf');
+} */
+
+@font-face {
+    font-family: 'Roboto Mono';
+    src: url('./fonts/Roboto_Mono/static/RobotoMono-Regular.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('./fonts/Open_Sans/OpenSans-VariableFont.ttf');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('./fonts/Open_Sans/OpenSans-Italic-VariableFont.ttf');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('./fonts/Ubuntu/Ubuntu-Bold.ttf');
+    font-weight: bold;
+}
+
+/* Only enable if we need this later. */
+/* @font-face {
+    font-family: 'Ubuntu';
+    src: url('./fonts/Ubuntu/Ubuntu-BoldItalic.ttf') format('ttf');
+    font-weight: bold;
+    font-style: italic;
+} */
+
+
+/* 
+    We don't use 'last:mb-0' for header tags, as they are not
+    supposed to be the 'last' element in the content.
+*/
+h1 {
+    @apply text-4xl md:text-6xl font-bold;
+    @apply mb-4 md:mb-6 mt-12 md:mt-14;
+    @apply font-ubuntu;
+
+    /* Mainly because h1's for post titles */
+    @apply !leading-[1.2];
+}
+
+h2 {
+    @apply text-3xl md:text-5xl font-bold;
+    @apply mb-4 md:mb-6 mt-12 md:mt-14;
+    @apply font-ubuntu;
+
+    /* Mainly because we use h2's for post titles in post list pages */
+    @apply !leading-[1.5];
+}
+
+h3 {
+    @apply text-2xl md:text-4xl font-bold;
+    @apply mb-4 md:mb-6 mt-12 md:mt-14;
+    @apply font-ubuntu;
+}
+
+h4 {
+    @apply text-xl md:text-3xl font-bold;
+    @apply mb-4 md:mb-6 mt-12 md:mt-14;
+    @apply font-ubuntu;
+}
+
+h5 {
+    @apply text-lg md:text-2xl font-bold;
+    @apply mb-4 md:mb-6 mt-12 md:mt-14;
+    @apply font-ubuntu;
+}
+
+h6 {
+    @apply text-xl font-bold;
+    @apply mb-4 md:mb-6 mt-12 md:mt-14;
+    @apply font-ubuntu;
+}
+
+p {
+    @apply text-lg md:text-xl;
+    @apply mb-4 md:mb-5 last:mb-0;
+    @apply leading-[1.85rem] md:leading-[2rem];
+    word-spacing: .05rem;
+}
+
+.codehilite {
+    @apply px-4 py-3 bg-[#fdffce] group-[.dark]:bg-[rgb(0,9,24)] rounded-md;
+    @apply mt-1 mb-5 md:mb-6 last:mb-0;
+    @apply overflow-x-auto w-full;
+}
+
+code:not(.codehilite *)  {
+    @apply px-2 py-1 bg-[#fdffce] group-[.dark]:bg-[rgb(0,9,24)] rounded-md;
+}
+
+
+@layer utilities {
+    .container-main {
+        max-width: 87.5rem;
+    }
+
+    .container-main-nosidebar {
+        max-width: 60rem;
+    }
+
+    .container-px {
+        @apply px-4 sm:px-8 md:px-12;
+    }
+
+    .text-hover {
+        @apply group-[.dark]:supports-hover:hover:stroke-blue-300 group-[.dark]:supports-hover:hover:text-blue-300;
+        @apply supports-hover:hover:stroke-blue-700 supports-hover:hover:text-blue-700;
+    }
+
+    .dark .magic-text-gradient {
+        background-image: linear-gradient(to right, #7ae0ff, #cb81e6 75%);
+    }
+
+    .magic-text-gradient {
+        background-image: linear-gradient(to right, #45d4ff, #bd6bdb 75%);
+    }
+
+    article a, .highly-emphasized-link {
+        @apply text-blue-700 group-[.dark]:text-blue-300 underline-offset-[6px] underline decoration-blue-700 group-[.dark]:decoration-blue-300;
+        @apply group-[.dark]:supports-hover:hover:text-blue-400 group-[.dark]:supports-hover:hover:decoration-blue-400;
+        @apply supports-hover:hover:text-[#0000ad] supports-hover:hover:decoration-[#0000ad];
+
+        /* the vertical padding is to cover the gap between lines, */
+        /* which messes with the hovering effect. */
+        @apply py-1;
+    }
+
+    .lightly-emphasized-link {
+        @apply underline-offset-1 decoration-[#d1e7ff] group-[.dark]:decoration-[#1d4f5b73] underline decoration-4;
+        @apply group-[.dark]:supports-hover:hover:text-blue-300;
+        @apply  supports-hover:hover:text-blue-700;
+
+        /* the vertical padding is to cover the gap between lines, */
+        /* which messes with the hovering effect. */
+        @apply py-1;
+
+        text-decoration-skip-ink: none;
+    }
+
+    .unemphasized-link {
+        @apply text-hover py-1;
+    }
+
+    .blue-unemphasized-link {
+        @apply py-1;
+        @apply group-[.dark]:stroke-blue-300 group-[.dark]:text-blue-300;
+        @apply group-[.dark]:supports-hover:hover:stroke-blue-400 group-[.dark]:supports-hover:hover:text-blue-400;
+        @apply supports-hover:hover:stroke-blue-700 supports-hover:hover:text-blue-700;
+    }
+
+    .unemphasized-magic-link {
+        @apply text-[#5419d2] group-[.dark]:text-[#cdb6ff] py-1;
+        @apply group-[.dark]:supports-hover:hover:text-[#ae88ff];
+        @apply supports-hover:hover:text-[#783aff];
+        @apply duration-100;
+    }
+}

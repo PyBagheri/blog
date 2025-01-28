@@ -1,0 +1,32 @@
+{% extends "blog/base.html" %}
+
+{% block head %}
+    <meta property="og:title" content="All tags - Bagheri's Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ fullurl('alltags') }}" />
+{% endblock head %}
+
+{% block title %}All tags - Bagheri's Blog{% endblock title %}
+
+{% block content %}
+<div class="flex flex-col gap-y-16">
+    <h2 class="my-0 text-lightmode-colored-title group-[.dark]:text-darkmode-colored-title">All tags</h2>
+
+    {% if tags_data %}
+    <nav class="flex flex-col gap-y-2 md:gap-y-4 items-start">
+        {% for data in tags_data %}
+        {# Since tags are all fit in one line, no need for vertical padding to fill line gaps. #}
+        <a class="text-xl md:text-2xl unemphasized-link" style="padding: 0;" href="{{ url('tag', tag=data.0) }}">
+            #{{ data.0 }} <span class="text-gray-500 group-[.dark]:text-gray-500">({{ data.1 }})</span>
+        </a>
+        {% endfor %}
+    </nav>
+    {% endif %}
+
+    {% include 'blog/components/bottomnav.html' %}
+</div>
+{% endblock content %}
+
+{% block sidebar %}
+{% include 'blog/components/sidebar.html' %}
+{% endblock sidebar %}
