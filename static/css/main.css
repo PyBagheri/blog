@@ -48,7 +48,8 @@
 */
 h1 {
     @apply text-4xl md:text-6xl font-bold;
-    @apply mb-4 md:mb-6 mt-12 md:mt-14;
+    /* @apply mb-4 md:mb-6 mt-12 md:mt-14; */
+    @apply mb-3 md:mb-5 mt-12 md:mt-14;
     @apply font-ubuntu;
 
     /* Mainly because h1's for post titles */
@@ -90,7 +91,8 @@ h6 {
 
 p {
     @apply text-lg md:text-xl;
-    @apply mb-4 md:mb-5 last:mb-0;
+    /* @apply mb-4 md:mb-5 last:mb-0; */
+    @apply mb-7 md:mb-8 last:mb-0;
     @apply leading-[1.85rem] md:leading-[2rem];
     word-spacing: .05rem;
 }
