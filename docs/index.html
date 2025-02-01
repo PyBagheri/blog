@@ -143,18 +143,35 @@
 <script>
     var main = document.getElementById('main');
 
+    function setGiscusTheme(theme) {
+        function sendMessage(message) {
+            const iframe = document.querySelector('iframe.giscus-frame');
+            if (!iframe) return;
+            iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+
+        sendMessage({
+            setConfig: {
+                theme: theme
+            }
+        });
+    }
+
     function toggleDarkMode() {
         if (main.classList.contains('dark')) {
             main.classList.remove('dark');
             localStorage.setItem('dark', 'false');
+            setGiscusTheme('light');
         } else {
             main.classList.add('dark');
             localStorage.removeItem('dark');
+            setGiscusTheme('dark');
         }
     }
 
     if (localStorage.getItem('dark') === 'false') {
         main.classList.remove('dark');
+        setGiscusTheme('light');
     }
 
     function openDrawer() {
@@ -171,6 +188,7 @@
         }
     }
 </script>
+
 
 </body>
 </html>

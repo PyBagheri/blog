@@ -82,14 +82,10 @@
     
 
     
-    <div class="giscus *:outline-none w-full hidden group-[.dark]:flex flex-col gap-y-2 text-gray-400">
-        <p role="complementary" class="text-base w-full bg-gray-900 px-3 py-2 rounded-lg text-center max-md:text-sm">If you don't want to authorize using giscus, you can click on "comments" and directly comment in Github dicussions.</p>
-        <iframe aria-label="Comments section" class="giscus-frame w-full" title="Comments" scrolling="no" allow="clipboard-write" src="https://giscus.app/en/widget?origin=http%3A%2F%2Fbagheri.io%2Fblog%2Fkk.html&amp;session=&amp;theme=dark&amp;reactionsEnabled=0&amp;emitMetadata=0&amp;inputPosition=top&amp;repo=PyBagheri%2Fblog&amp;repoId=R_kgDONXYqYA&amp;category=Announcements&amp;categoryId=DIC_kwDONXYqYM4ClRoE&amp;strict=1&amp;description=&amp;backLink=http%3A%2F%2Fbagheri.io%2Fblog%2Fkk.html&amp;term=http%3A%2F%2Fbagheri.io%2Fblog%2Fkk.html" loading="lazy" style="height: 282px;"></iframe>
-    </div>
+    <div class="giscus-container *:outline-none w-full flex flex-col gap-y-2 text-gray-600 group-[.dark]:text-gray-400">
+        <p role="complementary" class="text-base w-full bg-gray-100 group-[.dark]:bg-gray-900 px-3 py-2 rounded-lg text-center max-md:text-sm">If you don't want to authorize using giscus, you can click on "comments" and directly comment in Github dicussions.</p>
 
-    <div class="giscus *:outline-none w-full flex flex-col gap-y-2 text-gray-600 group-[.dark]:hidden">
-        <p role="complementary" class="text-base w-full bg-gray-100 px-3 py-2 rounded-lg text-center max-md:text-sm">If you don't want to authorize using giscus, you can click on "comments" and directly comment in Github dicussions.</p>
-        <iframe aria-label="Comments section" class="giscus-frame w-full" title="Comments" scrolling="no" allow="clipboard-write" src="https://giscus.app/en/widget?origin=http%3A%2F%2Fbagheri.io%2Fblog%2Fkk.html&amp;session=&amp;theme=light&amp;reactionsEnabled=0&amp;emitMetadata=0&amp;inputPosition=top&amp;repo=PyBagheri%2Fblog&amp;repoId=R_kgDONXYqYA&amp;category=Announcements&amp;categoryId=DIC_kwDONXYqYM4ClRoE&amp;strict=1&amp;description=&amp;backLink=http%3A%2F%2Fbagheri.io%2Fblog%2Fkk.html&amp;term=http%3A%2F%2Fbagheri.io%2Fblog%2Fkk.html" loading="lazy" style="height: 282px;"></iframe>
+        <div class="giscus"></div>
     </div>
     
 
@@ -144,18 +140,35 @@
 <script>
     var main = document.getElementById('main');
 
+    function setGiscusTheme(theme) {
+        function sendMessage(message) {
+            const iframe = document.querySelector('iframe.giscus-frame');
+            if (!iframe) return;
+            iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+
+        sendMessage({
+            setConfig: {
+                theme: theme
+            }
+        });
+    }
+
     function toggleDarkMode() {
         if (main.classList.contains('dark')) {
             main.classList.remove('dark');
             localStorage.setItem('dark', 'false');
+            setGiscusTheme('light');
         } else {
             main.classList.add('dark');
             localStorage.removeItem('dark');
+            setGiscusTheme('dark');
         }
     }
 
     if (localStorage.getItem('dark') === 'false') {
         main.classList.remove('dark');
+        setGiscusTheme('light');
     }
 
     function openDrawer() {
@@ -171,6 +184,24 @@
             drawer.classList.remove('open');
         }
     }
+</script>
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="PyBagheri/blog"
+        data-repo-id="R_kgDONXYqYA"
+        data-category="Announcements"
+        data-category-id="DIC_kwDONXYqYM4ClRoE"
+        data-mapping="pathname"
+        data-strict="1"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
 </script>
 
 </body>
