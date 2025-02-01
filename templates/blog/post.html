@@ -165,20 +165,28 @@
 {% endblock sidebar %}
 
 {% block bodyend %}
-<script src="https://giscus.app/client.js"
-        data-repo="PyBagheri/blog"
-        data-repo-id="R_kgDONXYqYA"
-        data-category="Announcements"
-        data-category-id="DIC_kwDONXYqYM4ClRoE"
-        data-mapping="pathname"
-        data-strict="1"
-        data-reactions-enabled="0"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="dark"
-        data-lang="en"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
+<script>
+    // https://github.com/giscus/giscus/issues/336#issuecomment-1009551934
+    let giscusTheme = localStorage.getItem('dark') === 'false' ? 'light' : 'dark';
+    let giscusAttributes = {
+        "src": "https://giscus.app/client.js",
+        "data-repo": "PyBagheri/blog",
+        "data-repo-id": "R_kgDONXYqYA",
+        "data-category": "Announcements",
+        "data-category-id": "DIC_kwDONXYqYM4ClRoE",
+        "data-mapping": "pathname",
+        "data-strict": "1",
+        "data-reactions-enabled": "0",
+        "data-emit-metadata": "0",
+        "data-input-position": "top",
+        "data-theme": "dark",
+        "data-lang": "en",
+        "data-loading": "lazy",
+        "crossorigin": "anonymous",
+        "async": ""
+    };
+    let giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+    document.body.appendChild(giscusScript);
 </script>
 {% endblock bodyend %}
